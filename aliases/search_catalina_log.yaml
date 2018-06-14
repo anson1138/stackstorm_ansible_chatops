@@ -1,15 +1,16 @@
 ---
-name: chatops.tail_catalina_log
-action_ref: stackstorm_ansible_chatops.tail_catalina_log
-description: Tail catalina log
+name: chatops.search_catalina_log
+action_ref: stackstorm_ansible_chatops.search_catalina_log
+description: Search catalina log
 # formats is a textual interface (ie chatops) to invoke an action
 formats:
-  - display: "catalina <tag> <environment> <length_no>"
+  - display: "catalinasearch <tag> <environment> <search_term>"
     representation:
-      - "catalina {{ tag }} {{ environment }} {{ length_no=20 }}"
+      - "catalinasearch {{ tag='' }} {{ environment='' }} {{ length_no=20 }}"
+      - "catsearch {{ tag='' }} {{ environment='' }} {{ search_term }}"
 result:
   format: |
-    Here is your status for `{{ execution.parameters.tag }} {{ execution.parameters.environment }} {{ execution.parameters.length_no }}` host(s): {~}
+    Here is your status for `{{ execution.parameters.tag }} {{ execution.parameters.environment }} {{ execution.parameters.search_term }}` host(s): {~}
     ```{{ execution.result.stdout }}```
   extra:
     slack:
