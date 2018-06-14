@@ -1,0 +1,12 @@
+### Place information about your pack version here.
+---
+ref: stackstorm_ansible_chatops
+name: stackstorm_ansible_chatops
+description: Pack running ansible playbooks via chatops/slack
+keywords:
+  - chatops
+  - slack
+  - ansible
+version: 0.0.1
+author: anson.kee
+email: anson.kee@gmail.com

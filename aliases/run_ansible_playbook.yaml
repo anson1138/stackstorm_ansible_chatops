@@ -1,0 +1,25 @@
+---
+name: chatops.run_ansible_playbook
+action_ref: stackstorm_ansible_chatops.run_ansible_playbook
+description: Run ansible playbook
+# formats is a textual interface (ie chatops) to invoke an action
+formats:
+  - display: "playbook <playbook> <tag> <env>"
+    representation:
+      - "playbook {{ playbook }} {{ tag }} {{ env }}"
+result:
+  format: |
+    Here is your status for `{{ execution.parameters.playbook }} {{ execution.parameters.tag }} {{ execution.parameters.env }}` host(s): {~}
+    ```{{ execution.result.stdout }}```
+  extra:
+    slack:
+      color: "{% if execution.result.succeeded %}good{% else %}danger{% endif %}"
+      fields:
+        - title: Alive
+          value: "{{ execution.result.stdout|regex_replace('(?!SUCCESS).', '')|wordcount }}"
+          short: true
+        - title: Dead
+          value: "{{ execution.result.stdout|regex_replace('(?!UNREACHABLE).', '')|wordcount }}"
+          short: true
+      footer: "{{ execution.id }}"
+      footer_icon: "https://stackstorm.com/wp/wp-content/uploads/2015/01/favicon.png"

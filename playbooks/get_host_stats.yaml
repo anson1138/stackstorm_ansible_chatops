@@ -1,0 +1,9 @@
+---
+- hosts: {{ tag }}:&tag_env_{{ env }}
+  gather_facts: false
+  tasks:
+    - name: get host stats
+      shell: hostname -f; df -h; uptime
+      register: output
+    - name: output host stats
+      debug: msg="{{ output.stdout }}"
