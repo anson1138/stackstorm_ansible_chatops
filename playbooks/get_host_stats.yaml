@@ -1,9 +1,19 @@
 ---
-- hosts: {{ tag }}:&tag_env_{{ environment }}
+- hosts: "{{ tag }}:&tag_env_{{ environment }}"
   gather_facts: false
   tasks:
-    - name: get host stats
-      shell: hostname -f; df -h; uptime
-      register: output
-    - name: output host stats
-      debug: msg="{{ output.stdout }}"
+    - name: get hostname
+      shell: hostname -f
+      register: hostname
+    - name: get disk usage
+      shell: df -h
+      register: df
+    - name: get uptime
+      shell: uptime
+      register: uptime
+    - name: output hostname
+      debug: msg="{{ hostname.stdout }}"
+    - name: output df
+      debug: msg="{{ df.stdout }}"
+    - name: output uptime
+      debug: msg="{{ uptime.stdout }}"
