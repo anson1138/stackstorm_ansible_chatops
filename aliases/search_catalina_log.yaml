@@ -6,7 +6,7 @@ description: Search catalina log
 formats:
   - display: "catalinasearch <tag> <environment> <search_term>"
     representation:
-      - "catalinasearch {{ tag='' }} {{ environment='' }} {{ length_no=20 }}"
+      - "catalinasearch {{ tag='' }} {{ environment='' }} {{ search_term }}"
       - "catsearch {{ tag='' }} {{ environment='' }} {{ search_term }}"
 result:
   format: |
