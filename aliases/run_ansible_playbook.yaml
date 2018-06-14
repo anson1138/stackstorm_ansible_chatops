@@ -4,12 +4,12 @@ action_ref: stackstorm_ansible_chatops.run_ansible_playbook
 description: Run ansible playbook
 # formats is a textual interface (ie chatops) to invoke an action
 formats:
-  - display: "playbook <playbook> <tag> <env>"
+  - display: "playbook <playbook> <tag> <environment>"
     representation:
-      - "playbook {{ playbook }} {{ tag }} {{ env }}"
+      - "playbook {{ playbook }} {{ tag }} {{ environment }}"
 result:
   format: |
-    Here is your status for `{{ execution.parameters.playbook }} {{ execution.parameters.tag }} {{ execution.parameters.env }}` host(s): {~}
+    Here is your status for `{{ execution.parameters.playbook }} {{ execution.parameters.tag }} {{ execution.parameters.environment }}` host(s): {~}
     ```{{ execution.result.stdout }}```
   extra:
     slack:

@@ -1,5 +1,5 @@
 ---
-- hosts: {{ tag }}:&tag_env_{{ env }}
+- hosts: {{ tag }}:&tag_env_{{ environment }}
   gather_facts: false
   tasks:
     - name: get host stats

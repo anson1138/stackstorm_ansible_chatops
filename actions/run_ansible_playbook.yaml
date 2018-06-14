@@ -17,7 +17,7 @@ parameters:
     description: "Command to run"
     immutable: false
     # inventory-file ec2.py is now defined in /root/.ansible.cfg
-    default: "/opt/stackstorm/virtualenvs/ansible/bin/ansible-playbook /opt/stackstorm/packs/${ST2_ACTION_PACK_NAME}/playbooks/{{playbook}}.yaml --extra-vars='tag={{tag}} env={{env}}'"
+    default: "/opt/stackstorm/virtualenvs/ansible/bin/ansible-playbook /opt/stackstorm/packs/${ST2_ACTION_PACK_NAME}/playbooks/{{playbook}}.yaml --extra-vars='tag={{tag}} environment={{environment}}'"
   playbook:
     description: "Ansible playbook to run"
     type: string
@@ -26,7 +26,7 @@ parameters:
     description: "AWS tag used to identify what hosts to run the ansible playbook"
     type: string
     required: true
-  env:
-    description: "AWS env tag to limit what hosts to run the ansible playbook"
+  environment:
+    description: "AWS environment tag to limit what hosts to run the ansible playbook"
     type: string
     required: true
