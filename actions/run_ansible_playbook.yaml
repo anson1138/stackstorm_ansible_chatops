@@ -25,8 +25,8 @@ parameters:
   tag:
     description: "AWS tag used to identify what hosts to run the ansible playbook"
     type: string
-    required: true
+    required: false
   environment:
     description: "AWS environment tag to limit what hosts to run the ansible playbook"
     type: string
-    required: true
+    required: false
