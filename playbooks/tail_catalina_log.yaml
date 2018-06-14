@@ -5,7 +5,7 @@
   become_user: root
   tasks:
     - name: Search catalina logs
-      shell: tail /var/log/tomcat8/catalina.out
+      shell: tail -{{ length_no }} /var/log/tomcat8/catalina.out
       register: logs
     - name: output logs
       debug: msg="{{ logs.stdout }}"

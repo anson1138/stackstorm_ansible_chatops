@@ -1,0 +1,32 @@
+---
+name: tail_catalina_log
+description: Tail catalina logs
+runner_type: local-shell-cmd
+entry_point: ""
+enabled: true
+parameters:
+  sudo:
+    description: "Run playbook with sudo"
+    immutable: true
+    default: true
+  kwarg_op:
+    immutable: true
+  timeout:
+    default: 180
+  cmd:
+    description: "Command to run"
+    immutable: false
+    # inventory-file ec2.py is now defined in /root/.ansible.cfg
+    default: "/opt/stackstorm/virtualenvs/ansible/bin/ansible-playbook /opt/stackstorm/packs/${ST2_ACTION_PACK_NAME}/playbooks/tail_catalina_log.yaml --extra-vars='tag={{tag}} environment={{environment}} length_no={{length_no}}'"
+  tag:
+    description: "AWS tag used to identify what hosts to run the ansible playbook"
+    type: string
+    required: false
+  environment:
+    description: "AWS environment tag to limit what hosts to run the ansible playbook"
+    type: string
+    required: false
+  length_no:
+    description: "tail length number like tail -20 /var/log/tomcat8/catalina.out"
+    type: integer
+    required: false

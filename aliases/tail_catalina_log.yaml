@@ -1,0 +1,25 @@
+---
+name: chatops.tail_catalina_log
+action_ref: stackstorm_ansible_chatops.tail_catalina_log
+description: Tail catalina log
+# formats is a textual interface (ie chatops) to invoke an action
+formats:
+  - display: "catalina <tag> <environment> <length_no>"
+    representation:
+      - "catalina {{ tag='' }} {{ environment='' }} {{ length_no=20 }}"
+result:
+  format: |
+    Here is your status for `{{ execution.parameters.tag }} {{ execution.parameters.environment }} {{ execution.parameters.length_no }}` host(s): {~}
+    ```{{ execution.result.stdout }}```
+  extra:
+    slack:
+      color: "{% if execution.result.succeeded %}good{% else %}danger{% endif %}"
+      fields:
+        - title: Alive
+          value: "{{ execution.result.stdout|regex_replace('(?!SUCCESS).', '')|wordcount }}"
+          short: true
+        - title: Dead
+          value: "{{ execution.result.stdout|regex_replace('(?!UNREACHABLE).', '')|wordcount }}"
+          short: true
+      footer: "{{ execution.id }}"
+      footer_icon: "https://stackstorm.com/wp/wp-content/uploads/2015/01/favicon.png"
