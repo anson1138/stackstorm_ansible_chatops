@@ -1,0 +1,11 @@
+---
+- hosts: "{{ tag }}:&tag_env_{{ environment }}"
+  gather_facts: false
+  become: true
+  become_user: root
+  tasks:
+    - name: Search catalina logs
+      shell: tail /var/log/tomcat8/catalina.out
+      register: logs
+    - name: output logs
+      debug: msg="{{ logs.stdout }}"
