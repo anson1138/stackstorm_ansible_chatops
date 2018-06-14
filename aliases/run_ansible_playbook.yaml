@@ -6,8 +6,8 @@ description: Run ansible playbook
 formats:
   - display: "playbook <playbook> <tag> <environment>"
     representation:
-      - "playbook {{ playbook }} {{ tag }} {{ environment }}"
-      - "pb {{ playbook }} {{ tag }} {{ environment }}"
+      - "playbook {{ playbook }} {{ tag='' }} {{ environment='' }}"
+      - "pb {{ playbook }} {{ tag='' }} {{ environment='' }}"
 result:
   format: |
     Here is your status for `{{ execution.parameters.playbook }} {{ execution.parameters.tag }} {{ execution.parameters.environment }}` host(s): {~}
