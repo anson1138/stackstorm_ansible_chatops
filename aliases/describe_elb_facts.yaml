@@ -1,0 +1,25 @@
+---
+name: chatops.describe_elb_facts
+action_ref: stackstorm_ansible_chatops.describe_elb_facts
+description: Run describe elb facts runbook
+# formats is a textual interface (ie chatops) to invoke an action
+formats:
+  - display: "elb_facts <elb_name>"
+    representation:
+      - "elb_facts {{ elb_name }}"
+result:
+  format: |
+    Here is your status for `{{ execution.parameters.elb_name }} ` elb(s): {~}
+    ```{{ execution.result.stdout }}```
+  extra:
+    slack:
+      color: "{% if execution.result.succeeded %}good{% else %}danger{% endif %}"
+      fields:
+        - title: Alive
+          value: "{{ execution.result.stdout|regex_replace('(?!SUCCESS).', '')|wordcount }}"
+          short: true
+        - title: Dead
+          value: "{{ execution.result.stdout|regex_replace('(?!UNREACHABLE).', '')|wordcount }}"
+          short: true
+      footer: "{{ execution.id }}"
+      footer_icon: "https://stackstorm.com/wp/wp-content/uploads/2015/01/favicon.png"

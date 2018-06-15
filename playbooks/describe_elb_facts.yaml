@@ -1,0 +1,13 @@
+- hosts: localhost
+  connection: local
+  gather_facts: false
+  tasks:
+    - name: Get ELB facts
+      local_action:
+        module: ec2_elb_facts
+        names: {{ elb_name }}
+        #names: dev-nagios
+        region: us-east-1
+      register: elb
+    - name: output elb
+      debug: msg="{{ elb.stdout }}"
