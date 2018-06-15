@@ -1,0 +1,25 @@
+---
+name: chatops.get_tomcat_healthcheck
+action_ref: stackstorm_ansible_chatops.get_tomcat_healthcheck
+description: Get tomcat instance health
+# formats is a textual interface (ie chatops) to invoke an action
+formats:
+  - display: "tomcat <app> <environment>"
+    representation:
+      - "tomcat {{ app }} {{ environment }}"
+result:
+  format: |
+    Here is your status for `{{ execution.parameters.app }} {{ execution.parameters.environment }} ` host(s): {~}
+    ```{{ execution.result.stdout }}```
+  extra:
+    slack:
+      color: "{% if execution.result.succeeded %}good{% else %}danger{% endif %}"
+      fields:
+        - title: Alive
+          value: "{{ execution.result.stdout|regex_replace('(?!SUCCESS).', '')|wordcount }}"
+          short: true
+        - title: Dead
+          value: "{{ execution.result.stdout|regex_replace('(?!UNREACHABLE).', '')|wordcount }}"
+          short: true
+      footer: "{{ execution.id }}"
+      footer_icon: "https://stackstorm.com/wp/wp-content/uploads/2015/01/favicon.png"

@@ -1,0 +1,24 @@
+---
+- hosts: "tag_app_{{ app }}:&tag_env_{{ environment }}"
+  gather_facts: false
+  tasks:
+    - name: get hostname
+      shell: hostname -f
+      register: hostname
+    - name: get tomcat healthcheck
+      shell: curl http://localhost:8080/{{ app }}/svn.txt
+      register: healthcheck
+    - name: get disk usage
+      shell: df -h
+      register: df
+    - name: get uptime
+      shell: uptime
+      register: uptime
+    - name: output hostname
+      debug: msg="{{ hostname.stdout }}"
+    - name: output healthcheck
+      debug: msg="{{ healthcheck.stdout }}"
+    - name: output df
+      debug: msg="{{ df.stdout }}"
+    - name: output uptime
+      debug: msg="{{ uptime.stdout }}"

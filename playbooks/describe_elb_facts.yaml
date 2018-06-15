@@ -5,9 +5,11 @@
     - name: Get ELB facts
       local_action:
         module: ec2_elb_facts
-        names: {{ elb_name }}
-        #names: dev-nagios
+        names: "{{ elb_name }}"
+        region: us-east-1
+        aws_access_key: xxxxxxxxxxxxxxxxx
+        aws_secret_key: xxxxxxxxxxxxxxxxx
         region: us-east-1
       register: elb
-    - name: output elb
-      debug: msg="{{ elb.stdout }}"
+    - name: debug
+      debug: msg="{{ elb }}"
